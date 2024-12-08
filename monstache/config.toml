@@ -2,14 +2,42 @@
 
 # if you need to seed an index from a collection and not just listen and sync changes events
 # you can copy entire collections or views from MongoDB to Elasticsearch
-direct-read-namespaces = ["OpenSitexDev.orders"]
+direct-read-namespaces = [
+    "OpenSitexDev.users",
+    "OpenSitexDev.domains",
+    "OpenSitexDev.storeproducts",
+    "OpenSitexDev.storedomains",
+    "OpenSitexDev.stores",
+    "OpenSitexDev.orders",
+    "OpenSitexDev.orderitems",
+    "OpenSitexDev.productpages",
+    "OpenSitexDev.utms",
+    "OpenSitexDev.views",
+    "OpenSitexDev.trackinghistories",
+    "OpenSitexDev.galleries",
+    "OpenSitexDev.products",
+]
 
 # if you want to use MongoDB change streams instead of legacy oplog tailing use change-stream-namespaces
 # change streams require at least MongoDB API 3.6+
 # if you have MongoDB 4+ you can listen for changes to an entire database or entire deployment
 # in this case you usually don't need regexes in your config to filter collections unless you target the deployment.
 # to listen to an entire db use only the database name.  For a deployment use an empty string.
-change-stream-namespaces = ["OpenSitexDev.orders"]
+change-stream-namespaces = [
+    "OpenSitexDev.users",
+    "OpenSitexDev.domains",
+    "OpenSitexDev.storeproducts",
+    "OpenSitexDev.storedomains",
+    "OpenSitexDev.stores",
+    "OpenSitexDev.orders",
+    "OpenSitexDev.orderitems",
+    "OpenSitexDev.productpages",
+    "OpenSitexDev.utms",
+    "OpenSitexDev.views",
+    "OpenSitexDev.trackinghistories",
+    "OpenSitexDev.galleries",
+    "OpenSitexDev.products",
+]
 
 # additional settings
 
@@ -50,8 +78,56 @@ exit-after-direct-reads = false
 ########################################
 # xác định collection được mapping từ mongodb sang ES
 [[mapping]]
+namespace = "OpenSitexDev.users"
+index = "users"
+
+[[mapping]]
+namespace = "OpenSitexDev.domains"
+index = "domains"
+
+[[mapping]]
+namespace = "OpenSitexDev.storeproducts"
+index = "storeproducts"
+
+[[mapping]]
+namespace = "OpenSitexDev.storedomains"
+index = "storedomains"
+
+[[mapping]]
+namespace = "OpenSitexDev.stores"
+index = "stores"
+
+[[mapping]]
 namespace = "OpenSitexDev.orders"
-index = "order"
+index = "orders"
+
+[[mapping]]
+namespace = "OpenSitexDev.orderitems"
+index = "orderitems"
+
+[[mapping]]
+namespace = "OpenSitexDev.productpages"
+index = "productpages"
+
+[[mapping]]
+namespace = "OpenSitexDev.utms"
+index = "utms"
+
+[[mapping]]
+namespace = "OpenSitexDev.views"
+index = "views"
+
+[[mapping]]
+namespace = "OpenSitexDev.trackinghistories"
+index = "trackinghistories"
+
+[[mapping]]
+namespace = "OpenSitexDev.products"
+index = "products"
+
+[[mapping]]
+namespace = "OpenSitexDev.galleries"
+index = "galleries"
 
 ########################################
 # Lọc các bản ghi trước khi đánh index (nếu bạn không cần lọc thì có thể bỏ qua phần này)
@@ -61,7 +137,11 @@ path = "filter/base.js"
 
 ########################################
 # script có thể dùng để chỉnh sửa dữ liệu, drop bản ghi
+# [[script]]
+# namespace = "OpenSitexDev.orders"
+# routing = true
+# path = "transform/base.js"
+
 [[script]]
-namespace = "OpenSitexDev.orders"
-routing = true
 path = "transform/base.js"
+routing = true
