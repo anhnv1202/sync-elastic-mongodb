@@ -12,6 +12,7 @@ direct-read-namespaces = [
     "OpenSitexDev.orderitems",
     "OpenSitexDev.productpages",
     "OpenSitexDev.utms",
+    "OpenSitexDev.orderitemview",
     "OpenSitexDev.views",
     "OpenSitexDev.trackinghistories",
     "OpenSitexDev.galleries",
@@ -77,9 +78,9 @@ exit-after-direct-reads = false
 
 ########################################
 # xác định collection được mapping từ mongodb sang ES
-[[mapping]]
-namespace = "OpenSitexDev.users"
-index = "users"
+#[[mapping]]
+# namespace = "OpenSitexDev.users"
+# index = "users"
 
 [[mapping]]
 namespace = "OpenSitexDev.domains"
@@ -128,6 +129,49 @@ index = "products"
 [[mapping]]
 namespace = "OpenSitexDev.galleries"
 index = "galleries"
+
+# Tạo view để join các collection liên quan
+[[mapping]]
+namespace = "OpenSitexDev.orderitemview" # mapping cho view
+index = "orderitems"
+
+[[mapping]]
+namespace = "OpenSitexDev.orderitems" # mapping cho collection gốc
+index = "orderitems"
+
+# Cấu hình relate cho các collection liên quan
+[[relate]]
+namespace = "OpenSitexDev.orderitems"
+with-namespace = "OpenSitexDev.orderitemview"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.orders"
+with-namespace = "OpenSitexDev.orderitems"
+src-field = "_id"
+match-field = "order"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.galleries"
+with-namespace = "OpenSitexDev.orderitems"
+src-field = "_id"
+match-field = "image"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.storeproducts"
+with-namespace = "OpenSitexDev.orderitems"
+src-field = "_id"
+match-field = "storeProduct"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.storeproductvariants"
+with-namespace = "OpenSitexDev.orderitems"
+src-field = "_id"
+match-field = "storeProductVariant"
+keep-src = false
 
 ########################################
 # Lọc các bản ghi trước khi đánh index (nếu bạn không cần lọc thì có thể bỏ qua phần này)
