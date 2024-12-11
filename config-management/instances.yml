@@ -5,6 +5,7 @@ instances:
       - localhost
     ip:
       - 127.0.0.1
+      - 68.183.232.111
 
   - name: es02
     dns:
@@ -12,6 +13,7 @@ instances:
       - localhost
     ip:
       - 127.0.0.1
+      - 68.183.232.111
 
   - name: es03
     dns:
@@ -19,3 +21,4 @@ instances:
       - localhost
     ip:
       - 127.0.0.1
+      - 68.183.232.111

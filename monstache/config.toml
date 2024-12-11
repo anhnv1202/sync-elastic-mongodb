@@ -9,7 +9,6 @@ direct-read-namespaces = [
     "OpenSitexDev.storedomains",
     "OpenSitexDev.stores",
     "OpenSitexDev.orders",
-    "OpenSitexDev.orderitems",
     "OpenSitexDev.productpages",
     "OpenSitexDev.utms",
     "OpenSitexDev.orderitemview",
@@ -78,9 +77,9 @@ exit-after-direct-reads = false
 
 ########################################
 # xác định collection được mapping từ mongodb sang ES
-#[[mapping]]
-# namespace = "OpenSitexDev.users"
-# index = "users"
+[[mapping]]
+namespace = "OpenSitexDev.users"
+index = "users"
 
 [[mapping]]
 namespace = "OpenSitexDev.domains"
@@ -101,10 +100,6 @@ index = "stores"
 [[mapping]]
 namespace = "OpenSitexDev.orders"
 index = "orders"
-
-[[mapping]]
-namespace = "OpenSitexDev.orderitems"
-index = "orderitems"
 
 [[mapping]]
 namespace = "OpenSitexDev.productpages"
@@ -133,10 +128,6 @@ index = "galleries"
 # Tạo view để join các collection liên quan
 [[mapping]]
 namespace = "OpenSitexDev.orderitemview" # mapping cho view
-index = "orderitems"
-
-[[mapping]]
-namespace = "OpenSitexDev.orderitems" # mapping cho collection gốc
 index = "orderitems"
 
 # Cấu hình relate cho các collection liên quan
