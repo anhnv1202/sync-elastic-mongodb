@@ -16,6 +16,7 @@ direct-read-namespaces = [
     "OpenSitexDev.trackinghistories",
     "OpenSitexDev.galleries",
     "OpenSitexDev.products",
+    "OpenSitexDev.product_views",
 ]
 
 # if you want to use MongoDB change streams instead of legacy oplog tailing use change-stream-namespaces
@@ -37,6 +38,9 @@ change-stream-namespaces = [
     "OpenSitexDev.trackinghistories",
     "OpenSitexDev.galleries",
     "OpenSitexDev.products",
+    "OpenSitexDev.variants",
+    "OpenSitexDev.variantoptions",
+    "OpenSitexDev.variantoptionvalues",
 ]
 
 # additional settings
@@ -117,9 +121,9 @@ index = "views"
 namespace = "OpenSitexDev.trackinghistories"
 index = "trackinghistories"
 
-[[mapping]]
-namespace = "OpenSitexDev.products"
-index = "products"
+#[[mapping]]
+#namespace = "OpenSitexDev.products"
+#index = "products"
 
 [[mapping]]
 namespace = "OpenSitexDev.galleries"
@@ -162,6 +166,45 @@ namespace = "OpenSitexDev.storeproductvariants"
 with-namespace = "OpenSitexDev.orderitems"
 src-field = "_id"
 match-field = "storeProductVariant"
+keep-src = false
+
+# Mapping cho product_views
+[[mapping]]
+namespace = "OpenSitexDev.product_views"  # view đã tạo
+index = "products"                        # index trong ES
+
+# Relate các collection liên quan
+[[relate]]
+namespace = "OpenSitexDev.products"
+with-namespace = "OpenSitexDev.product_views"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.variants"
+with-namespace = "OpenSitexDev.product_views"
+src-field = "_id"
+match-field = "variants._id"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.variantoptions"
+with-namespace = "OpenSitexDev.product_views"
+src-field = "_id"
+match-field = "variantOptions._id"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.variantoptionvalues"
+with-namespace = "OpenSitexDev.product_views"
+src-field = "_id"
+match-field = "variantOptions.values._id"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.galleries"
+with-namespace = "OpenSitexDev.product_views"
+src-field = "_id"
+match-field = "images._id"
 keep-src = false
 
 ########################################
