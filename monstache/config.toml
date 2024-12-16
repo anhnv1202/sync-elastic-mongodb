@@ -25,7 +25,7 @@ direct-read-namespaces = [
 # in this case you usually don't need regexes in your config to filter collections unless you target the deployment.
 # to listen to an entire db use only the database name.  For a deployment use an empty string.
 change-stream-namespaces = [
-  #  "OpenSitexDev.users",
+    "OpenSitexDev.users",
     "OpenSitexDev.domains",
     "OpenSitexDev.storeproducts",
     "OpenSitexDev.storedomains",
@@ -166,6 +166,13 @@ namespace = "OpenSitexDev.storeproductvariants"
 with-namespace = "OpenSitexDev.orderitems"
 src-field = "_id"
 match-field = "storeProductVariant"
+keep-src = false
+
+[[relate]]
+namespace = "OpenSitexDev.users"
+with-namespace = "OpenSitexDev.orderitems"
+src-field = "_id"
+match-field = "seller"
 keep-src = false
 
 # Mapping cho product_views
